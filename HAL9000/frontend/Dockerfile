@@ -3,12 +3,13 @@ FROM node:alpine
 
 # Set working directory
 WORKDIR /usr/app
+ENV=http://34.130.94.99/api/hal9000
 
 # Install PM2 globally
 #RUN npm install --global pm2
 
 # Copy package.json and yarn.json before other files
-COPY package.json yarn.lock /usr/app/
+COPY package.json /usr/app/
 RUN yarn install --frozen-lockfile
 
 # Install app dependencies via yarn
