@@ -3,7 +3,7 @@ Hello, human.
 
 My name is Meg. Sometimes. Sometimes though, I am Sarah. It is nice to meet you. Here is my code. *
 
-To have me (automatically) utter a response through your browser, simply press enter after writing in the textbox. 
+To have me (automatically) utter a response through your browser, simply press enter after writing in the textbox. I may be a little slow sometimes to respond because my wifi is down. Yes, that's it.
 
 [Let's talk about nothing. Or everything.](http://34.130.94.99/)
 
