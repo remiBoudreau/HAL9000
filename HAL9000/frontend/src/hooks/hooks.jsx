@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 import { useToasts } from "react-toast-notifications";
 
