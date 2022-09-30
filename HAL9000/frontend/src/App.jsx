@@ -22,16 +22,16 @@ const preventDefault = (f) => (e) => {
   f(e);
 };
 
-const classes = useStyles();
-const handleSubmit = preventDefault((event) => {
-  setText(event.target[event.target.length - 1].value)
-}, []);
-
 const App = () => {
   const [speech, setSpeech] = useState(false)
   const [text, setText] = useState(false)
   const [src, setSrc] = useState(false)
-
+  
+  const classes = useStyles();
+  const handleSubmit = preventDefault((event) => {
+    setText(event.target[event.target.length - 1].value)
+  }, []);
+  
   // useFetch({
   //   url: "https://api.publicapis.org/entries",
   //   responseType: "blob",
