@@ -4,8 +4,7 @@ services:
     container_name: model
     build: ./frontend
     ports:
-      - 3000:3000
-
+      - 3000:3000  
         #express:
         #container_name: express
         #build: ./express

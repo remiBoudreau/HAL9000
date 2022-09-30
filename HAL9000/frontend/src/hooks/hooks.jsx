@@ -13,12 +13,10 @@ function useFetch({url, responseType="json",  data, unsetData, setData}) {
           await axios({
               url: url,
               data: {'text': data},
-              //headers : { //
-                //'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8' //
-                //}, //
               method: "post",
             })
               .then((res) => {
+		console.log(res.data)
                 unsetData(false)
                 setData("data:audio/wav;base64," + res.data) 
               })

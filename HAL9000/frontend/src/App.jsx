@@ -41,7 +41,7 @@ const App = () => {
   // })
 
   useFetch({
-    url: process.env.CONVERSE_API,
+    url: 'http://34.130.94.99/api/hal9000', //process.env.CONVERSE_API,
     data: text,
     unsetData: setText,
     setData: setSrc,

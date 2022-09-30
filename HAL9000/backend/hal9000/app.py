@@ -24,8 +24,7 @@ def before_first_request():
 
 @app.route('/api/hal9000', methods = ['GET','POST'])
 def chatbot():
-    text = request.get_json(force=True)['text']
-    
+    text = request.get_json(force=True)['text']   
     conversation.add_user_input(text)
     result = nlp([conversation], do_sample=False, max_length=1000)
     messages = []
