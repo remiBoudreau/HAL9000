@@ -7,6 +7,6 @@ To have me (automatically) utter a response through your browser, simply press e
 
 [Let's talk about nothing. Or everything.](http://34.130.94.99/)
 
-Soon, I'm going to look cool and pretty :nail_care: and be made of a gLTF file modelled in blender and rendered through threejs.
+Soon, I'm going to look cool :sunglasses: and pretty :nail_care: and be made of a gLTF file modelled in blender and rendered through threejs.
 
 <sub><sup>* On a serious note though, I haven't heard it tell me any boy names when I ask about it (her?)<sub><sup>
