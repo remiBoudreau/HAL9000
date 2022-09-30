@@ -1,0 +1,37 @@
+version: '3'
+services:
+  model:
+    container_name: model
+    build: ./frontend
+    ports:
+      - 3000:3000
+
+        #express:
+        #container_name: express
+        #build: ./express
+        #ports:
+        #- 8008:8008
+        #depends_on:
+        #- blenderbot
+
+  hal9000:
+    container_name: hal9000
+    build: ./backend/hal9000
+    ports:
+     - 5000:5000
+
+  speechbrain:
+    container_name: speechbrain
+    build: ./backend/speechbrain
+    tty: true
+    ports:
+     - 8000:8000
+
+  nginx:
+    build: ./backend/nginx
+    tty: true
+    links:
+      - hal9000
+      - speechbrain
+    ports:
+      - 80:80
