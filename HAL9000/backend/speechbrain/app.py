@@ -16,7 +16,6 @@ def tts():
     # Append save_path to json
     text = request.values.get("text")
     uuid = request.values.get("uuid")
-    print(text)
     # Intialize TTS (tacotron2) and Vocoder (HiFIGAN)
     tacotron2 = Tacotron2.from_hparams(source="speechbrain/tts-tacotron2-ljspeech", savedir="tmpdir_tts")
     hifi_gan = HIFIGAN.from_hparams(source="speechbrain/tts-hifigan-ljspeech", savedir="tmpdir_vocoder")

@@ -42,7 +42,6 @@ def chatbot():
             'uuid': result.uuid,
             'text': messages[-1]['text'].strip()
         }))
-    print(response.content)
     return response.content
 
     if (response.status_code == 200):
