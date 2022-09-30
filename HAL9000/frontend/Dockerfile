@@ -12,13 +12,13 @@ COPY package.json yarn.lock /usr/app/
 RUN yarn install --frozen-lockfile
 
 # Install app dependencies via yarn
-#RUN yarn --production
+RUN yarn --production
 
 # Copy all files
 COPY . /usr/app/
 
 # Build App
-#RUN yarn build
+RUN yarn build
 
 # Expose the listening port
 EXPOSE 3000
@@ -31,5 +31,5 @@ RUN chown -R node .
 USER node
 
 # Run npm start script with PM2 when container starts
-CMD ["yarn", "start"]
-#CMD ["pm2-runtime", "start", "yarn", "--interpreter", "sh", "--name", "web-interface", "--", "start"]
+#CMD ["yarn", "start"]
+CMD ["pm2-runtime", "start", "yarn", "--interpreter", "sh", "--name", "web-interface", "--", "start"]
