@@ -44,21 +44,5 @@ def chatbot():
         }))
     return response.content
 
-    if (response.status_code == 200):
-        print(response.body)
-        resp = jsonify({"success":True, })
-        resp.status_code = 200
-    else:
-        resp = jsonify({"success":False})
-        resp.status_code = response.status_code
-    return resp
-
-@app.route('/api/reset', methods = ['GET'])
-def reset():
-    conversation = Conversation()
-    resp = jsonify({"success":True}) 
-    resp.status_code = 200
-    return resp
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
