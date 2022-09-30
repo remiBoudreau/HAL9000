@@ -38,11 +38,5 @@ function useFetch({url, responseType="json",  data, unsetData, setData}) {
     
     return data
   };
-
-  function useInput({ type /*...*/ }) {
-    const [value, setValue] = useState("");
-    const input = <input value={value} onChange={e => setValue(e.target.value)} type={type} />;
-    return [value, input];
-  }
   
-export { useFetch, useInput }
+export { useFetch }
