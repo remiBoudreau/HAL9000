@@ -6,31 +6,14 @@ import { useFetch, useInput } from "./hooks/hooks"
 import HAL9000 from "./components/HAL9000/HAL9000"
 import Footer from "./components/Footer/Footer";
 
-// STYLING
-// Material UI
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-// Nodejs library that concatenates classes
-import classNames from "classnames";
-// Styles
-import styles from "./styles.js"
-const useStyles = makeStyles((theme) => styles(theme));
-
-// Prevent refresh on "enter"
-const preventDefault = (f) => (e) => {
-  e.preventDefault();
-  f(e);
-};
-
 const App = () => {
   const [speech, setSpeech] = useState(false)
   const [text, setText] = useState(false)
   const [src, setSrc] = useState(false)
 
-  const classes = useStyles();
-  const handleSubmit = preventDefault((event) => {
-    setText(event.target[event.target.length - 1].value)
-  }, []);
+  const [value, textEl] = useInput({ type: "text" });
+
+  const pipeline = [setSpeech, setText, setSrc]
 
   // useFetch({
   //   url: "https://api.publicapis.org/entries",
@@ -40,57 +23,26 @@ const App = () => {
   //   setData: setSrc,
   // })
 
+  console.log(src)
   useFetch({
-    url: "http://34.130.94.99/api/hal9000",
+    url: "http://34.130.94.99:5000/api/hal9000",
     data: text,
-    setData: setText,
-    unsetData: setSrc,
+    unsetData: setText,
+    setData: setSrc,
   })
+  function reset() {
+    pipeline.forEach(setFunction => {
+      setFunction(false)
+    })
+  }
 
   return (
-    <div className={
-      classNames(
-         classes.bg
-       )
- }>
-    <div
-      className={
-           classNames(
-              classes.formContainer,
-              classes.resizeIn,
-              classes.formMaxHeight
-            )
-      }
-    >
-      <div
-        className={classNames(
-          classes.boxToggle,
-        )}
-      />
-        <form
-          className={classNames(
-            classes.desktopForm
-          )}
-          onSubmit={handleSubmit}
-        >
-          <div
-            className={classNames(classes.textFieldWrapper)}
-          >
-            <TextField
-              label="Say something...?"
-              variant="filled"
-              className={
-                  classNames(classes.root, classes.animatedForm)
-              }
-              defaultValue=""
-              style={{ width: "100%" }}
-            />
-          </div>
-        </form>
-    </div>
+    <>
     <audio autoPlay={true} id="audio" controls src={src ? src : null} />
+    {textEl}
+    <button onClick={() => setText(value)}/>
     <Footer/>
-    </div>
+    </>
   );
 };
 

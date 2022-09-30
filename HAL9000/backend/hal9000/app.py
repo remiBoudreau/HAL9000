@@ -3,7 +3,6 @@ from flask import Flask
 from flask import request, jsonify, send_file
 import os
 import requests
-import base64
 import io
 
 # Blenderbot
@@ -26,6 +25,7 @@ def before_first_request():
 @app.route('/api/hal9000', methods = ['GET','POST'])
 def chatbot():
     text = request.get_json(force=True)['text']
+    
     conversation.add_user_input(text)
     result = nlp([conversation], do_sample=False, max_length=1000)
     messages = []
@@ -42,7 +42,8 @@ def chatbot():
             'uuid': result.uuid,
             'text': messages[-1]['text'].strip()
         }))
-    return send_file(io.BytesIO(response.content), mimetype='audio/wav', as_attachment="true", download_name='wtf.wav');
+    print(response.content)
+    return response.content
 
     if (response.status_code == 200):
         print(response.body)

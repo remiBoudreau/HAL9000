@@ -2,7 +2,8 @@
 from flask import Flask
 from flask import request, jsonify, Response, send_file, request
 import io
-from werkzeug.wsgi import FileWrapper
+import base64
+
 # Speech Brain
 import torchaudio
 from speechbrain.pretrained import Tacotron2
@@ -12,7 +13,6 @@ app = Flask(__name__)
 
 @app.route('/api/tts', methods = ['GET', 'POST'])
 def tts():
-    print('wtf')
     # Append save_path to json
     text = request.values.get("text")
     uuid = request.values.get("uuid")
@@ -29,6 +29,8 @@ def tts():
     buffer_ = io.BytesIO()
     torchaudio.save(buffer_, waveforms.squeeze(1), 22050, format="wav")
     buffer_.seek(0)
+    return base64.b64encode(buffer_.read()).decode()
+    
     # Send binary data
     return send_file(buffer_, mimetype="audio/wav", as_attachment=True, download_name=uuid + '.wav')
 
