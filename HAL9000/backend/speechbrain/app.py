@@ -29,9 +29,6 @@ def tts():
     torchaudio.save(buffer_, waveforms.squeeze(1), 22050, format="wav")
     buffer_.seek(0)
     return base64.b64encode(buffer_.read()).decode()
-    
-    # Send binary data
-    return send_file(buffer_, mimetype="audio/wav", as_attachment=True, download_name=uuid + '.wav')
 
 @app.route('/', methods = ['GET', 'POST'])
 def stt():
