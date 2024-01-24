@@ -5,6 +5,7 @@ FROM python:3.10.7-slim-buster
 EXPOSE 5000
 ENV LISTEN_PORT=5000
 ENV TTS_API=http://speechbrain:8000/api/tts
+ENV OPENAI_API_KEY=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
 
 WORKDIR /python-docker
 

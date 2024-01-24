@@ -3,7 +3,6 @@ FROM node:alpine
 
 # Set working directory
 WORKDIR /usr/app
-#ENV CONVERSE_API="http://34.130.94.99/api/hal9000"
 
 # Install PM2 globally
 RUN npm install --global pm2

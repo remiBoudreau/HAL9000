@@ -1,5 +1,0 @@
-Flask
-pyannote.audio
-requests
-speechbrain
-torchaudio

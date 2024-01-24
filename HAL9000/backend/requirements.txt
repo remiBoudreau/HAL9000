@@ -1,0 +1,7 @@
+fastapi
+transformers==4.33.0
+openai
+TTS
+sounddevice
+numpy
+whisper
