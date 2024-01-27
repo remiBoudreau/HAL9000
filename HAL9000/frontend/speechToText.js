@@ -41,6 +41,11 @@ function startSpeechRecognition() {
   recognition.start();
 }
 
+// Set up event handler for incoming messages
+socket.onmessage = (event) => {
+  console.log(event.data)
+};
+
 // Handle WebSocket connection events
 socket.onopen = (event) => {
   console.log('WebSocket connection opened.');
