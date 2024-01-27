@@ -5,3 +5,7 @@ TTS
 sounddevice
 numpy
 whisper
+python-multipart
+elevenlabs
+httpx
+deepgram-sdk
