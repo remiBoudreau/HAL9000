@@ -11,28 +11,23 @@ import websockets
 
 app = FastAPI()
 
-ELEVENLABS_API_KEY = "219a0b05686d220f16cd5d11299f5e9a"
-ELEVENLABS_URI = "wss://api.elevenlabs.io/v1/text-to-speech/LYp1XfKJNswUTe0f9ayG/stream-input?model_id=eleven_turbo_v2"
-OPENAI_API_KEY = "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"
+origins = [
+    "http://localhost:5173",  # local development origin
+    "https://",  # production origin
+]
 
-
-# origins = [
-#     "http://localhost:5173",  # local development origin
-#     "https://",  # production origin
-# ]
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=origins,
-#     allow_credentials=True,
-#     allow_methods=[], 
-#     allow_headers=["Origin", "Content-Type"],
-# )
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=[], 
+    allow_headers=["Origin", "Content-Type"],
+)
 
 # Get API keys and URIs from environment variables
-# OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-# ELEVENLABS_API_KEY = os.environ.get("ELEVENLABS_API_KEY")
-# ELEVENLABS_URI = os.environ.get("ELEVENLABS_URI")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+ELEVENLABS_API_KEY = os.environ.get("ELEVENLABS_API_KEY")
+ELEVENLABS_URI = os.environ.get("ELEVENLABS_URI")
 
 async def on_startup():
     app.openai_client = AsyncOpenAI(api_key=OPENAI_API_KEY)

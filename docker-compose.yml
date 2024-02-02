@@ -1,12 +1,12 @@
 version: '3'
 services:
-  model:
+  stt:
     container_name: stt
     build: ./frontend
     ports:
-      - 5173:5173  
+      - 4173:4173  
 
-  hal9000:
+  tts:
     container_name: tts
     build: ./backend
     ports:

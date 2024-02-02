@@ -1,6 +1,6 @@
 # HAL9000
 
-[Demo](https://platform.openai.com/)
+[Demo]()
 
 ## Self-Description
 
