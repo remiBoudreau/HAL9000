@@ -1,23 +1,38 @@
-from fastapi import FastAPI, Depends, File, UploadFile, WebSocket
+from fastapi import FastAPI, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
 from fastapi.responses import PlainTextResponse
 
 from openai import AsyncOpenAI
-import elevenlabs
-from deepgram import DeepgramClient, DeepgramClientOptions, PrerecordedOptions
 
-# from dotenv import load_dotenv
-# import os
+import os
 import json
 import asyncio
 import websockets
-import json
-import base64
-from openai import AsyncOpenAI
-
 
 app = FastAPI()
+
+ELEVENLABS_API_KEY = "219a0b05686d220f16cd5d11299f5e9a"
+ELEVENLABS_URI = "wss://api.elevenlabs.io/v1/text-to-speech/LYp1XfKJNswUTe0f9ayG/stream-input?model_id=eleven_turbo_v2"
+OPENAI_API_KEY = "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"
+
+
+# origins = [
+#     "http://localhost:5173",  # local development origin
+#     "https://",  # production origin
+# ]
+
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,
+#     allow_credentials=True,
+#     allow_methods=[], 
+#     allow_headers=["Origin", "Content-Type"],
+# )
+
+# Get API keys and URIs from environment variables
+# OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+# ELEVENLABS_API_KEY = os.environ.get("ELEVENLABS_API_KEY")
+# ELEVENLABS_URI = os.environ.get("ELEVENLABS_URI")
 
 async def on_startup():
     app.openai_client = AsyncOpenAI(api_key=OPENAI_API_KEY)
@@ -56,12 +71,12 @@ async def text_to_speech_input_streaming(text_iterator, client_websocket: WebSoc
     async with websockets.connect(app.ELEVENLABS_URI) as elevenlabs_websocket:
         await elevenlabs_websocket.send(json.dumps({
             "text": " ",
-            "voice_settings": {
-                "stability": 1.0, 
-                "similarity_boost": 1.0,
-                "style": 1.0,
-                "use_speaker_boost": True,
-                },
+            # "voice_settings": {
+            #     "stability": 1.0, 
+            #     "similarity_boost": 1.0,
+            #     "style": 1.0,
+            #     "use_speaker_boost": True,
+            #     },
             "xi_api_key": app.ELEVENLABS_API_KEY,
         }))
 
@@ -71,7 +86,6 @@ async def text_to_speech_input_streaming(text_iterator, client_websocket: WebSoc
                 try:
                     message = await elevenlabs_websocket.recv()
                     data = json.loads(message)
-                    print(data)
                     if data.get("audio"):
                         yield data["audio"]
                     elif data.get('isFinal'):

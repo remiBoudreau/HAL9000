@@ -42,9 +42,9 @@ function init() {
         const center = box.getCenter(new THREE.Vector3());
 
         camera.position.copy(center);
-        camera.position.x += size / 2.0; // Adjust as needed
-        camera.position.y += size / 5.0; // Adjust as needed
-        camera.position.z += size / 2.0; // Adjust as needed
+        camera.position.x += size / 2.0;
+        camera.position.y += size / 5.0;
+        camera.position.z += size / 2.0;
         camera.lookAt(center);
     });
 }

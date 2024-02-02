@@ -1,4 +1,7 @@
 let recognition;
+let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+let audioQueue = [];
+let audioBufferSource;
 
 // Establish WebSocket connection
 const socket = new WebSocket('ws://localhost:8000/ws/hal9000');
@@ -8,10 +11,6 @@ function startSpeechRecognition() {
   recognition = new webkitSpeechRecognition();
   recognition.lang = 'en-US';
   recognition.finalTranscript = '';
-
-  recognition.onresult = (event) => {
-    // No need to handle interim results
-  };
 
   recognition.onerror = (event) => {
     console.error('Speech recognition error:', event.error);
@@ -43,8 +42,48 @@ function startSpeechRecognition() {
 
 // Set up event handler for incoming messages
 socket.onmessage = (event) => {
-  console.log(event.data)
+  console.log(event.data);
+
+  // Decode base64 audio data
+  const audioData = atob(event.data);
+  const arrayBuffer = new ArrayBuffer(audioData.length);
+  const view = new Uint8Array(arrayBuffer);
+  for (let i = 0; i < audioData.length; i++) {
+    view[i] = audioData.charCodeAt(i);
+  }
+
+  // Add decoded audio data to the queue
+  audioQueue.push(arrayBuffer);
+
+  // If the queue has only one item and audio is not currently playing, start playing
+  if (audioQueue.length === 1 && !audioBufferSource) {
+    playNextAudio();
+  }
 };
+
+// Play the next audio in the queue
+function playNextAudio() {
+  if (audioQueue.length > 0) {
+    const arrayBuffer = audioQueue.shift();
+
+    // Decode audio data and create buffer source
+    audioContext.decodeAudioData(arrayBuffer, (buffer) => {
+      audioBufferSource = audioContext.createBufferSource();
+      audioBufferSource.buffer = buffer;
+
+      // Schedule playback of the buffer source
+      audioBufferSource.onended = () => {
+        audioBufferSource = null; // Reset buffer source after playback ends
+        playNextAudio(); // Play the next audio when the current one ends
+      };
+
+      audioBufferSource.connect(audioContext.destination);
+      audioBufferSource.start(0);
+    }, (error) => {
+      console.error('Error decoding audio data:', error);
+    });
+  }
+}
 
 // Handle WebSocket connection events
 socket.onopen = (event) => {
