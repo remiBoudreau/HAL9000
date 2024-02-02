@@ -34,3 +34,4 @@ Say something and HAL9000 will respond in real-time.
 
 * Create gLTF file modelled in blender and render through ThreeJs (currently being done with CSS).
 * History implementation for HAL9000 memory of past utterances.
+* Cloud Deployment
