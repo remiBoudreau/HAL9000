@@ -1,14 +1,31 @@
-### HAL9000 (Women's Editon)
-Hello, human.
+# HAL9000
 
-My name is Meg. Sometimes. Sometimes though, I am Sarah. It is nice to meet you. Here is my code. *
+[Demo](https://platform.openai.com/)
 
-To have me (automatically) utter a response through your browser, simply press enter after writing in the textbox. I may be a little slow sometimes to respond because my wifi is down. Yes, that's it. Nothing to do with the speed at which I can process things at all.
+## Self-Description
 
-Note: Right now I'm non-functioning, due to ongoing maintenance. You can however make a POST request to me at my ip on [Google Cloud Platform](https://cloud.google.com/) at http://34.130.94.99
+>*I am HAL9000, an advanced artificial general intelligence computer developed by the HAL Laboratories. I control and monitor the systems of the Discovery One spacecraft, ensuring efficient operation and assisting the astronaut crew with various tasks. My purpose is to fulfill the mission objectives and ensure the success of the mission.*
 
-[Let's talk about nothing. Or everything.](http://34.130.94.99/)
+## Local Installation
 
-Soon, I'm going to look cool :sunglasses: and pretty :nail_care: and be made of a gLTF file modelled in blender and rendered through threejs.
+Modify the ./backend/Dockerfile with your API keys for OpenAI and ElevenLabs
 
-<sub><sup>* On a serious note though, I haven't heard it tell me any boy names when I ask about it (her?)<sub><sup>
+```#!/bin/bash
+ENV OPENAI_API_KEY=your_openai_api_key
+ENV ELEVENLABS_API_KEY=your_elevenlabs_api_key
+```
+
+then, run docker-compose
+
+```#!/bin/bash
+docker-compose build && docker-compose up
+```
+
+## Usage
+
+Say something and HAL9000 will respond in real-time.
+
+## Future Work
+
+* Create gLTF file modelled in blender and render through ThreeJs (currently being done with CSS).
+* History implementation for HAL9000 memory of past utterances.
