@@ -13,6 +13,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",  # local development origin
+    "http://localhost:4173",  # local development origin
     "https://",  # production origin
 ]
 
