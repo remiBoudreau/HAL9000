@@ -1,7 +1,5 @@
 # HAL9000 (Under Construction)
 
-[Demo]()
-
 ## Description
 
 This application is a real-time voice interaction system between a user and HAL9000. The backend is built using FastAPI, incorporating features like WebSocket communication for real-time bidirectional communication between the server and the client. It uses the OpenAI API for chat completions and ElevenLabs API for text-to-speech conversion. The application handles audio streaming and transcribes user input through speech recognition.
